@@ -55,6 +55,10 @@
         "text_encoding": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "chrono": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp",
+        "cstdarg": "cpp"
     }
 }
