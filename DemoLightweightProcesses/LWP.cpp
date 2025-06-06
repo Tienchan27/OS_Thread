@@ -32,18 +32,18 @@ DWORD WINAPI ThreadFunction(LPVOID lpParam) {
 
             task = taskQueue.front();
             taskQueue.pop();
-            std::cout << "[START] Thread " << threadID << " starts doing task [" << task.start << ", " << task.end << "]\n";
+            std::cout << "[START] LWP " << threadID << " starts doing task [" << task.start << ", " << task.end << "]\n";
         }
 
         unsigned long long result = 0;
         for (int i = task.start; i <= task.end; ++i) {
             result += i;
-            Sleep(1000 * (1 + rand() % 3)); //Giả lập xử lý nặng: random 1-3s
         }
+        Sleep(1000 * (1 + rand() % 2)); //Giả lập xử lý nặng: random 1-2s 
 
         {
             std::lock_guard<std::mutex> lock(mtx);
-            std::cout << "[FINISHED] Thread " << threadID << " is done with task [" << task.start << ", " << task.end << "] = " << result << "\n";
+            std::cout << "[FINISHED] LWP " << threadID << " is done with task [" << task.start << ", " << task.end << "] = " << result << "\n";
             partialResults.push_back(result);
         }
     }
@@ -60,7 +60,7 @@ int main() {
         allTasksAssigned = false;
 
         int N, maxPerThread, numThreads;
-        std::cout << "------------------------------------------" << std::endl;
+        std::cout << "------------------------------------------\n";
         std::cout << "Enter number of threads to use: ";
         std::cin >> numThreads;
 
@@ -70,6 +70,8 @@ int main() {
         std::cout << "Enter max range each thread should handle per task: ";
         std::cin >> maxPerThread;
 
+        std::cout << "------------------------------------------\n";
+        std::cout << "================START DEMO================\n";
         //Chia các task thành từng đoạn [start, end]
         for (int i = 1; i <= N; i += maxPerThread) {
             int start = i;

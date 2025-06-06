@@ -59,6 +59,7 @@
         "chrono": "cpp",
         "iomanip": "cpp",
         "sstream": "cpp",
-        "cstdarg": "cpp"
+        "cstdarg": "cpp",
+        "queue": "cpp"
     }
 }
